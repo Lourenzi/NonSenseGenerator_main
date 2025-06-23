@@ -1,0 +1,12 @@
+com\ProjectApp\NonSenseGenerator\util\ApiKeyLoader.class
+com\ProjectApp\NonSenseGenerator\english\WordDictionaries$1.class
+com\ProjectApp\NonSenseGenerator\english\TemplateSelector$1.class
+com\ProjectApp\NonSenseGenerator\service\NonsenseService.class
+com\ProjectApp\NonSenseGenerator\NSGController.class
+com\ProjectApp\NonSenseGenerator\english\TemplateSelector.class
+com\ProjectApp\NonSenseGenerator\english\WordDictionaries.class
+com\ProjectApp\NonSenseGenerator\english\GoogleTextModerationClient.class
+com\ProjectApp\NonSenseGenerator\english\FilteredTokens.class
+com\ProjectApp\NonSenseGenerator\english\EnglishSentenceBuilder.class
+com\ProjectApp\NonSenseGenerator\Application.class
+com\ProjectApp\NonSenseGenerator\english\InputAnalyzer.class

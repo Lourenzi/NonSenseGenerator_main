@@ -1,0 +1,52 @@
+[
+  {
+    "pos": "DET",
+    "content": "The",
+    "headTokenIndex": 1
+  },
+  {
+    "pos": "NOUN",
+    "content": "kid",
+    "headTokenIndex": 3
+  },
+  {
+    "pos": "VERB",
+    "content": "was",
+    "headTokenIndex": 3
+  },
+  {
+    "pos": "VERB",
+    "content": "flirting",
+    "headTokenIndex": 3
+  },
+  {
+    "pos": "ADP",
+    "content": "with",
+    "headTokenIndex": 3
+  },
+  {
+    "pos": "DET",
+    "content": "the",
+    "headTokenIndex": 6
+  },
+  {
+    "pos": "NOUN",
+    "content": "chick",
+    "headTokenIndex": 4
+  },
+  {
+    "pos": "ADP",
+    "content": "in",
+    "headTokenIndex": 6
+  },
+  {
+    "pos": "DET",
+    "content": "the",
+    "headTokenIndex": 9
+  },
+  {
+    "pos": "NOUN",
+    "content": "garden",
+    "headTokenIndex": 7
+  }
+]
