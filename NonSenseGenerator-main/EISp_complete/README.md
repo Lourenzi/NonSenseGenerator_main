@@ -25,20 +25,20 @@ Viene gestita dalla classe `InputAnalyzer` di tipo Spring `@Component`, in parti
 
 ### Selezione del/i template di frase
 
-Gestita dalla classe `TemplateSelector` di tipo Spring `@Component`. Il costruttore preleva il file JSON *"templates/sentence_templates_en.json"* contenente i vari template di frase forniti di segnaposti (racchiusi in {}) per verbi, aggettivi e sostantivi. La funzione `selectTemplate(FilteredTokens)` scorre la lista del file JSON di template prima specificato e returna uno o più template randomici adatto/i al numero di sostantivi, verbi e aggettivi già presenti nella frase di input, selezionandoli però da una `List<String>` di template compatibili grazie alla funzione predicativa booleana `templateMatches(String, FilteredTokens)` che a sua volta fa uso della funzione `countPlaceholders(String,String)` per contare quanti segnaposto di ogni tipo (verbo, sostantivo, aggettivo) presenta il template in fase di selezione.
+Gestita dalla classe `TemplateSelector` di tipo Spring `@Component`. Il costruttore preleva il file JSON *"templates/sentence_templates_en.json"* contenente i vari template di frase forniti di segnaposti (racchiusi in {}) per verbi, aggettivi e sostantivi. La funzione `selectTemplate(FilteredTokens)` scorre la lista del file JSON di template prima specificato e returna uno o più template randomici adatto/i al numero di sostantivi, verbi e aggettivi già presenti nella frase di input, selezionandoli però da una `List<String>` di template compatibili grazie alla funzione predicativa booleana `templateMatches(String, FilteredTokens)`. A sua volta quest'ultima fa uso della funzione `countPlaceholders(String,String)` per contare quanti segnaposto di ogni tipo (verbo, sostantivo, aggettivo) presenta il template in fase di selezione.
 
 ### Determinazione tossicità frase/i generate/i
 
-Gestita dalla classe `GoogleTextModerationClient`, la cui funzione principale `moderateText(String)` invoca una richiesta HTTP al Google Cloud NLP server relativa al metodo `moderateText()` la cui risposta in formato JSON viene filtrata estraendo solo il valore relativo al livello di tossicità del parametro stringa passato: in particolare se i valori relativi a questo aspetto soddisfano una certa soglia abbiamo considerato la stringa come _"Clean"_.
+Gestita dalla classe `GoogleTextModerationClient`, la cui funzione principale `moderateText(String)` invoca una richiesta HTTP al Google Cloud NLP server relativa al metodo `moderateText()` la cui risposta in formato JSON viene filtrata estraendo solo il valore relativo al livello di tossicità del parametro stringa passato. In particolare se i valori relativi a questo aspetto soddisfano una certa soglia abbiamo considerato la stringa come _"Clean"_.
 
 ### Costruzione frase/i in output
 
-Gestita dalla classe `EnglishSentenceBuilder`, sfrutta tutte le sopra citate classi e relative funzioni per creare una frase "nonsense" in base ai dati raccolti dalla frase di input. In particolare, la funzione principale `generateTokens(FilteredTokens, int)` sceglie un numero definito di token della frase di input, aggiungendo ognuno in un arrary contenente entità dello stesso valore sintattico; sceglie un template di frase adatto al numero di tokens prelevati, sostituisce i placeholder con le entità prelevate dall'input (oppure in caso di mancanza vengono scelte dai dizionari statici) ed infine effettua un controllo della tossicità della frase cosi prodotta.
+Gestita dalla classe `EnglishSentenceBuilder`, sfrutta tutte le sopra citate classi e relative funzioni per creare una frase "nonsense" in base ai dati raccolti dalla frase di input. In particolare, la funzione principale `generateTokens(FilteredTokens, int)` sceglie un numero definito di token della frase di input, aggiungendo ognuno in un arrary contenente entità dello stesso valore sintattico; sceglie un template di frase adatto al numero di tokens prelevati, sostituisce i placeholder con le entità prelevate dall'input (oppure in caso di mancanza vengono scelte da dei dizionari già presenti in formato JSON) ed infine effettua un controllo della tossicità della frase cosi prodotta.
 
 > Le chiamate a funzione effettive di `analyze(String)` in `InputAnalyzer` e di `generateTokens(FilteredTokens, int)` in `EnglishSentenceBuilder` vengono fatte all'interno della classe `NonsenseService` di tipo Spring `@Service` (una specializzazione di `@Component` che identifica una classe di implementazione)
 
 ### Costruzione dell'albero sintattico
-Gestita dall'applicazione SpringBoot ausiliaria della cartella */SyntaxTree_maven_universal*: in pratica ogni volta che viene richiesto l'albero sintattico della frase inserita viene fatto partire un altro server SpringBoot su una porta differente da quella del server principale, nel quale si effettua la chiamata alla funzione `main` della classe `SimplifySyntaxJson` per estrarre dal file json della risposta alla chiamata di `analyzeSyntax()` del Google Cloud NLP API (salvata in *SyntaxTree_maven_universal/input.json*) solo i campi relativi alla posizione degli indici di parentela della morfologia della frase, contenuti in `headTokenIndex` della risposta JSON dell'API. Il file così semplificato viene salvato in *SyntaxTree_maven_universal/output.json* e le informazioni usate dalle funzioni di JGraphX per la creazione dell'albero 
+Gestita dall'applicazione SpringBoot ausiliaria della cartella */SyntaxTree_maven_universal*. Ogni volta che viene richiesto l'albero sintattico della frase inserita viene fatto partire un altro server SpringBoot su una porta differente da quella del server principale, nel quale si effettua la chiamata alla funzione `main` della classe `SimplifySyntaxJson` per estrarre dal file JSON della risposta alla chiamata di `analyzeSyntax()` del Google Cloud NLP API (salvata in *SyntaxTree_maven_universal/input.json*) solo i campi relativi alla posizione degli indici di parentela della morfologia della frase, contenuti in `headTokenIndex`. Il file così semplificato viene salvato in *SyntaxTree_maven_universal/output.json* e le informazioni usate dalle funzioni di JGraphX per la creazione dell'albero 
 
 ## Albero delle directory del progetto
 
@@ -128,7 +128,7 @@ README.md
 
 ## Report di Unit Testing
 
-Disponibile nel sito --> [Unit Tests](https://lourenzi.github.io/TestResults)
+Disponibile nel sito --> [Unit Tests](https://lourenzi.github.io/NSG/TestResults.html)
 
 ## Note
 
